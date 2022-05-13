@@ -9,7 +9,9 @@
 
 <p>These are the PACs that have contributed money for the 2021-2022 election cycle for those candidates, ordered by the amount donated, as recorded by OpenSecrets.org.</p>
 
-<p>Data from the top 100 contributors to each candidate from OpenSecrets.org as of 5/12/2022.  Individual contributions not included.</p>
+<p>Data from the top 100 contributors to each candidate from OpenSecrets.org as of 5/12/2022.  Individual contributions are not included.</p>
+
+<p>Total included in the data set: $@AppData.pacDict.Values.Sum(x => x.Sum(y => y.Pacs)) from @AppData.pacDict.Count(x => x.Value.Any(y => y.Pacs > 0)) PACs.</p>
 
 @foreach(var pac in AppData.pacDict.OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
 {
