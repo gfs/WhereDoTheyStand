@@ -20,6 +20,7 @@ namespace WhereTheyStand.Wasm
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
+            
             var appData = new AppData();
 
             appData.candidateDict = JsonConvert.DeserializeObject<Dictionary<string, List<Lib.Donation>>>(candidateText);
