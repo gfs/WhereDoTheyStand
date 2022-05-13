@@ -59,7 +59,7 @@
       "System.Text.Json.dll": "sha256-kOWriMECN3YGoLMj6FCizWIttVmWVzgC7JIu3lEi0fo=",
       "System.Text.RegularExpressions.dll": "sha256-RLty81TyVhaisnrHiQlusnii8TR\/ols5deLKHru+oVk=",
       "WhereTheyStand.Lib.dll": "sha256-YLsq+RY8anVI9uRF1cbT\/gzezALjAyCz4v1NqVJ7VCc=",
-      "WhereTheyStand.Wasm.dll": "sha256-ROrLef2s\/dFeHiVsSeEjUEyQG5TwjagHRQNhR9jFmuU="
+      "WhereTheyStand.Wasm.dll": "sha256-GVj2nTWqwYpVFVmiCoDcZDyZDOFbv++nJzbD08cFQew="
     },
     "extensions": null,
     "lazyAssembly": null,
