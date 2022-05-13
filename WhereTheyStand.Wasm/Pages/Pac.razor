@@ -19,9 +19,9 @@ else
 {
     <div>
         <h1>@AppData.pacMap[PacId].Ultord</h1>
-        This PAC has donated to the following candidates who co-sponsored HR 1011. <a href=@PacUrl target="_blank">Source</a>
+        <p>This PAC has donated @AppData.pacDict[PacId].Sum(x => x.Pacs) to @AppData.pacDict[PacId].Where(x => x.Pacs > 0).Count() candidates who co-sponsored HR 1011. <a href=@PacUrl target="_blank">Source</a></p>
         
-        @foreach(var donation in AppData.pacDict[PacId])
+        @foreach(var donation in AppData.pacDict[PacId].Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
         {
             <p>$@String.Format("{0:n0}",donation.Pacs) donated to <a href="Candidate/@donation.Candidate.id">@donation.Candidate.name</a></p>
         }
