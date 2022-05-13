@@ -11,11 +11,10 @@ namespace WhereTheyStand.Wasm
         public static async Task Main(string[] args)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            Console.WriteLine(string.Join(',', assembly.GetManifestResourceNames()));
-            var candidateText = new StreamReader(assembly.GetManifestResourceStream("WhereTheyStand.Wasm.Candidates.json")).ReadToEnd();
-            var candidateMap = new StreamReader(assembly.GetManifestResourceStream("WhereTheyStand.Wasm.CandiateMap.json")).ReadToEnd();
-            var pacText = new StreamReader(assembly.GetManifestResourceStream("WhereTheyStand.Wasm.SortedOrgs.json")).ReadToEnd();
-            var pacMap = new StreamReader(assembly.GetManifestResourceStream("WhereTheyStand.Wasm.PacMap.json")).ReadToEnd();
+            var candidateText = await new StreamReader(assembly.GetManifestResourceStream("WhereTheyStand.Wasm.Candidates.json")).ReadToEndAsync();
+            var candidateMap = await new StreamReader(assembly.GetManifestResourceStream("WhereTheyStand.Wasm.CandiateMap.json")).ReadToEndAsync();
+            var pacText = await new StreamReader(assembly.GetManifestResourceStream("WhereTheyStand.Wasm.SortedOrgs.json")).ReadToEndAsync();
+            var pacMap = await new StreamReader(assembly.GetManifestResourceStream("WhereTheyStand.Wasm.PacMap.json")).ReadToEndAsync();
 
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
