@@ -7,7 +7,7 @@
   "linkerEnabled": true,
   "resources": {
     "assembly": {
-      "Microsoft.AspNetCore.Components.dll": "sha256-9LuiJuCDzoHhTtwNCv5JShvybxx+A9+VtAWhV9CXkXk=",
+      "Microsoft.AspNetCore.Components.dll": "sha256-vrKpIJ6kJ9N56RImdA+jBiyHlTbv6p8KLShD3NWzP08=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-4uR\/ZmF\/RZ73Mo8mWlSwHKdQdxP8\/fE3yxM4H9rMitc=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-OfawION\/UfFO75U4pMPDVhHt71EbKuF3qxDeiPFGqKo=",
       "Microsoft.CSharp.dll": "sha256-WY+w0fiNfPIfE+LvKK7fUsAqzHvdA8ZssYc6229UA2k=",
@@ -59,7 +59,7 @@
       "System.Text.Json.dll": "sha256-kOWriMECN3YGoLMj6FCizWIttVmWVzgC7JIu3lEi0fo=",
       "System.Text.RegularExpressions.dll": "sha256-RLty81TyVhaisnrHiQlusnii8TR\/ols5deLKHru+oVk=",
       "WhereTheyStand.Lib.dll": "sha256-YLsq+RY8anVI9uRF1cbT\/gzezALjAyCz4v1NqVJ7VCc=",
-      "WhereTheyStand.Wasm.dll": "sha256-n2e5ljuS099rOmU28EbzU9v75CNDNelKv9t9Sn\/k2Kw="
+      "WhereTheyStand.Wasm.dll": "sha256-AF9Sateh2iNtEp6H7aozLryyFbXVqrhHPKv6sLH85VA="
     },
     "extensions": null,
     "lazyAssembly": null,
