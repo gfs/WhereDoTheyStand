@@ -20,7 +20,7 @@ else
 {
     <div>
         <h1>@AppData.candidateMap[CandidateId].name</h1>
-        @AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).Count() PACs have donated a total of @String.Format("{0:n0}",AppData.candidateDict[CandidateId].Sum(x => x.Pacs)) to this candidate. <a href=@CandidateUrl target="_blank">Source</a>
+        <p>@AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).Count() PACs have donated a total of @String.Format("{0:n0}",AppData.candidateDict[CandidateId].Sum(x => x.Pacs)) to this candidate. <a href=@CandidateUrl target="_blank">Source</a></p>
 
         @foreach(var donation in AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
         {
