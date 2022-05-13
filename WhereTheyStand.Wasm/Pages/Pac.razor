@@ -1,0 +1,36 @@
+﻿@page "/Pac/{PacId}"
+@inject AppData AppData
+
+<PageTitle>Where do they stand?</PageTitle>
+
+<p>Access to Safe Legal Abortion is a Human Right.  This is codified by the United Nations in the UN Convention on Civil and Political Rights via General Comment No. 36 point 8 (2019).</p>
+
+<p>150 Republican House Members have co-sponsored the Life At Conception Act of 2021 (HR 1011), which would revoke that right in US law, banning the right to Abortion nationwide, without exceptions.</p>
+
+<p>These are the PACs that have contributed money for the 2021-2022 election cycle for those candidates, ordered by the amount donated, as recorded by OpenSecrets.org.</p>
+
+<p>Data from the top 100 contributors to each candidate from OpenSecrets.org as of 5/12/2022.  Individual contributions not included.</p>
+
+@if (string.IsNullOrEmpty(PacId))
+{
+    <a href="Pacs">Navigate to All Pacs overview.</a>
+}
+else
+{
+    <div>
+        <h1>@AppData.pacMap[PacId].Ultord</h1>
+        This PAC has donated to the following candidates who co-sponsored HR 1011. <a href=@PacUrl>Source</a>
+        
+        @foreach(var donation in AppData.pacDict[PacId])
+        {
+            <p>$@donation.Pacs donated to <a href="Candidate/@donation.Candidate.id">@donation.Candidate.name</a></p>
+        }
+    </div>    
+}
+
+@code{
+    [Parameter]
+    public string PacId { get; set; }
+
+    string PacUrl => $"https://www.opensecrets.org/political-action-committees-pacs/{PacId}/candidate-recipients/2022";
+}

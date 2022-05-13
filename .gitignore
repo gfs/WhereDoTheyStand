@@ -1,0 +1,5 @@
+*.dll
+*.exe
+.idea/*
+bin/
+obj/
