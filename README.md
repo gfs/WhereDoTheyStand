@@ -6,6 +6,6 @@ Access to Safe Legal Abortion is a Human Right. This is codified by the United N
 
 This project hosts an interactive web app that lists the PACs that have contributed money for the 2021-2022 election cycle for those candidates, ordered by the amount donated, as recorded by OpenSecrets.org.
 
-You can access the app here: https://github.io/gfs/WhereDoTheyStand/.
+You can access the app here: https://gfs.github.io/WhereDoTheyStand/.
 
 This is a personal project. Any opinions expressed are my own. Please report any issues by filing an issue on GitHub: https://github.com/gfs/WhereDoTheyStand.
