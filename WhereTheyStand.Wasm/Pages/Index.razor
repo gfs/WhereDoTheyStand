@@ -12,7 +12,7 @@
 
 @if (string.IsNullOrEmpty(PacId))
 {
-    <p>Total included in the data set: $@String.Format("{0:n0}",AppData.pacDict.Values.Sum(x => x.Sum(y => y.Pacs))) from @String.Format("{0:n0}",AppData.pacDict.Count(x => x.Value.Any(y => y.Pacs > 0))) PACs.</p>
+    <p>Total included in the data set: $@String.Format("{0:n0}",AppData.pacDict.Values.Sum(x => x.Sum(y => y.Pacs))) from $@String.Format("{0:n0}",AppData.pacDict.Count(x => x.Value.Any(y => y.Pacs > 0))) PACs.</p>
 
     @foreach(var pac in AppData.pacDict.OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
     {
