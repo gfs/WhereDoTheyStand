@@ -1,15 +1,69 @@
 ﻿@page "/Candidates"
+@page "/Candidate"
 
 @inject AppData AppData
-
-<PageTitle>Where do they stand?</PageTitle>
+@using Microsoft.AspNetCore.WebUtilities
+@inject AppData AppData
+@inject NavigationManager NavManager
 
 <Statement></Statement>
 
-<p>Total included in the data set: $@String.Format("{0:n0}",AppData.candidateDict.Values.Sum(x => x.Sum(y => y.Pacs))) to @String.Format("{0:n0}",AppData.candidateDict.Count(x => x.Value.Any(y => y.Pacs > 0))) candidates.</p>
-
-@foreach(var candidate in AppData.candidateDict.OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
+@if (string.IsNullOrEmpty(CandidateId))
 {
-    <h1><a href="Candidate/@candidate.Key">@AppData.candidateMap[@candidate.Key].name</a></h1>
-    <p>$@String.Format("{0:n0}",candidate.Value.Sum(y => y.Pacs)) donated from @String.Format("{0:n0}",candidate.Value.Where(x => x.Pacs > 0).Count()) PACs.</p>
+
+    <p>Total included in the data set: $@String.Format("{0:n0}",AppData.candidateDict.Values.Sum(x => x.Sum(y => y.Pacs))) to @String.Format("{0:n0}",AppData.candidateDict.Count(x => x.Value.Any(y => y.Pacs > 0))) candidates.</p>
+
+    @foreach(var candidate in AppData.candidateDict.OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
+    {
+        <h1><a @onclick="() => {Set(candidate.Key);}" style="color:blue;">@AppData.candidateMap[@candidate.Key].name</a></h1>
+        <p>$@String.Format("{0:n0}",candidate.Value.Sum(y => y.Pacs)) donated from @String.Format("{0:n0}",candidate.Value.Where(x => x.Pacs > 0).Count()) PACs.</p>
+    }
+}
+else
+{    <a @onclick="() => {Set(null);}">Reset</a>
+
+    if (!AppData.candidateMap.ContainsKey(CandidateId))
+    {
+        <div>Error: Invalid candidate id.</div>
+    }
+    else
+    {
+        <div>
+        <h1>@AppData.candidateMap[CandidateId].name</h1>
+        <p>@AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).Count() PACs have donated a total of @String.Format("{0:n0}",AppData.candidateDict[CandidateId].Sum(x => x.Pacs)) to this candidate. <a href=@CandidateUrl target="_blank">Source</a></p>
+
+        @foreach(var donation in AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
+        {
+            <p><a href="Pac?PacId=@donation.org.Pacid">@donation.org.Ultord</a> donated $@String.Format("{0:n0}",donation.Pacs)</p>
+        }
+        </div>  
+    }
+}
+
+
+@code{
+    protected override void OnInitialized()
+    {
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("CandidateId", out var pacId))
+        {
+            CandidateId = pacId;
+        }
+    }
+
+    void Set(string? candidateId)
+    {
+        var existingUri = NavManager.Uri;
+        var newUri = existingUri.Split('?')[0];
+        if (!string.IsNullOrEmpty(candidateId))
+        {
+            newUri += $"?CandidateId={candidateId}";
+        }
+        CandidateId = candidateId;
+        NavManager.NavigateTo(newUri);
+    }
+
+    string? CandidateId = null;
+
+    string CandidateUrl => $"https://www.opensecrets.org/members-of-congress/contributors?cid={CandidateId}&cycle=2022";
 }

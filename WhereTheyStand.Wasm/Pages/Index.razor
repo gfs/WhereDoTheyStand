@@ -1,6 +1,64 @@
 ﻿@page "/"
+@page "/Pacs"
+@page "/Pac"
+
 @inject AppData AppData
+@using Microsoft.AspNetCore.WebUtilities
+@inject AppData AppData
+@inject NavigationManager NavManager
 
 <PageTitle>Where do they stand?</PageTitle>
+<Statement></Statement>
 
-<Pacs></Pacs>
+@if (string.IsNullOrEmpty(PacId))
+{
+    <p>Total included in the data set: $@String.Format("{0:n0}",AppData.pacDict.Values.Sum(x => x.Sum(y => y.Pacs))) from @String.Format("{0:n0}",AppData.pacDict.Count(x => x.Value.Any(y => y.Pacs > 0))) PACs.</p>
+
+    @foreach(var pac in AppData.pacDict.OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
+    {
+        <h1><a @onclick="() => { Set(pac.Key); }" style="color:blue">@AppData.pacMap[@pac.Key].Ultord</a></h1>
+        <p>$@String.Format("{0:n0}",pac.Value.Sum(y => y.Pacs)) donated to @String.Format("{0:n0}",pac.Value.DistinctBy(x => x.Candidate).Count()) candidates.</p>
+    }
+}
+else
+{
+    <a @onclick="() => {Set(null);}">Reset</a>
+    <div>
+        <h1>@AppData.pacMap[PacId].Ultord</h1>
+        <p>This PAC has donated @String.Format("{0:n0}",AppData.pacDict[PacId].Sum(x => x.Pacs)) to @String.Format("{0:n0}",AppData.pacDict[PacId].Where(x => x.Pacs > 0).Count()) candidates who co-sponsored HR 1011. <a href=@PacUrl target="_blank">Source</a></p>
+        
+        @foreach(var donation in AppData.pacDict[PacId].Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
+        {
+            <p>$@String.Format("{0:n0}",donation.Pacs) donated to <a href="Candidate?CandidateId=@donation.Candidate.id">@donation.Candidate.name</a></p>
+        }
+    </div>
+}
+
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("PacId", out var pacId))
+        {
+            PacId = pacId;
+        }
+    }
+
+    void Set(string? pacId)
+    {
+        var existingUri = NavManager.Uri;
+        var newUri = existingUri.Split('?')[0];
+        if (!string.IsNullOrEmpty(pacId))
+        {
+            newUri += $"?PacId={pacId}";
+        }
+        PacId = pacId;
+        NavManager.NavigateTo(newUri);
+    }
+
+    string? PacId = null;
+
+    string PacUrl => $"https://www.opensecrets.org/political-action-committees-pacs/{PacId}/candidate-recipients/2022";
+}
