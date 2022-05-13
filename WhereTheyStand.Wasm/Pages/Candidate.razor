@@ -20,7 +20,7 @@ else
 {
     <div>
         <h1>@AppData.candidateMap[CandidateId].name</h1>
-        The following have donated to this candidate via their PAC. <a href=@CandidateUrl>Source</a>
+        The following have donated to this candidate via their PAC. <a href=@CandidateUrl target="_blank">Source</a>
 
         @foreach(var donation in AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
         {
