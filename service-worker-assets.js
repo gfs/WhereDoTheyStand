@@ -253,6 +253,10 @@
       "url": "WhereTheyStand.Wasm.styles.css"
     },
     {
+      "hash": "sha256-47DEQpj8HBSa+\/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "url": ".nojekyll"
+    },
+    {
       "hash": "sha256-kfXT+\/7PwnK7UBTMq8\/AX20+soj7u1sV\/U1lCtnmSZI=",
       "url": "css\/app.css"
     },
@@ -329,5 +333,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "sKV3vXek"
+  "version": "2mQBHqVx"
 };
