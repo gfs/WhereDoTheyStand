@@ -21,7 +21,7 @@ jobs:
     - name: Mkdir toPublish
       run: mkdir toPublish
     - name: Move Blazor Output into Place
-      run: mv WhereTheyStand.Wasm/bin/Release/net6.0/publish/ toPublish/
+      run: mv WhereTheyStand.Wasm/bin/Release/net6.0/publish/wwwroot toPublish/
     - name: Update gitattributes
       run: mv toPublish/gitattributes toPublish/.gitattributes
 
