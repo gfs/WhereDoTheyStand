@@ -14,7 +14,7 @@ This is a .NET 6.0 Blazor WebAssembly app and may take a moment to load. It runs
 I do not collect any information about your use of the application.
 
 ## Personal Comment
-This is a personal project. Any opinions expressed are my own. Not affiliated with any PAC, Corporation, Candidate or Organization. 
+This is a personal project. Any opinions expressed are my own. This project is not affiliated with any PAC, Corporation, Candidate or Organization. 
 
 ## Bugs
 Please report any issues by filing an issue on GitHub: https://github.com/gfs/WhereDoTheyStand/Issues/.
