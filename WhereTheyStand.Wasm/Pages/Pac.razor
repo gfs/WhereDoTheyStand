@@ -23,7 +23,7 @@ else
         
         @foreach(var donation in AppData.pacDict[PacId])
         {
-            <p>$@String.Format("{0:n}",donation.Pacs) donated to <a href="Candidate/@donation.Candidate.id">@donation.Candidate.name</a></p>
+            <p>$@String.Format("{0:n0}",donation.Pacs) donated to <a href="Candidate/@donation.Candidate.id">@donation.Candidate.name</a></p>
         }
     </div>    
 }

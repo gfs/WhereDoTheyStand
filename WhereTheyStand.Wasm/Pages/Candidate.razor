@@ -24,7 +24,7 @@ else
 
         @foreach(var donation in AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
         {
-            <p><a href="Pac/@donation.org.Pacid">@donation.org.Ultord</a> donated $@String.Format("{0:n}",donation.Pacs)</p>
+            <p><a href="Pac/@donation.org.Pacid">@donation.org.Ultord</a> donated $@String.Format("{0:n0}",donation.Pacs)</p>
         }
     </div>    
 }

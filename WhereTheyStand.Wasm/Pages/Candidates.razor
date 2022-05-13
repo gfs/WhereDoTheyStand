@@ -12,10 +12,10 @@
 
 <p>Data from the top 100 contributors to each candidate from OpenSecrets.org as of 5/12/2022.  Individual contributions not included.</p>
 
-<p>Total included in the data set: $@String.Format("{0:n}",AppData.candidateDict.Values.Sum(x => x.Sum(y => y.Pacs))) to @String.Format("{0:n}",AppData.candidateDict.Count(x => x.Value.Any(y => y.Pacs > 0))) candidates.</p>
+<p>Total included in the data set: $@String.Format("{0:n0}",AppData.candidateDict.Values.Sum(x => x.Sum(y => y.Pacs))) to @String.Format("{0:n0}",AppData.candidateDict.Count(x => x.Value.Any(y => y.Pacs > 0))) candidates.</p>
 
 @foreach(var candidate in AppData.candidateDict.OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
 {
     <h1><a href="Candidate/@candidate.Key">@AppData.candidateMap[@candidate.Key].name</a></h1>
-    <p>$@String.Format("{0:n}",candidate.Value.Sum(y => y.Pacs)) donated from @String.Format("{0:n}",candidate.Value.Where(x => x.Pacs > 0).Count()) PACs.</p>
+    <p>$@String.Format("{0:n0}",candidate.Value.Sum(y => y.Pacs)) donated from @String.Format("{0:n0}",candidate.Value.Where(x => x.Pacs > 0).Count()) PACs.</p>
 }

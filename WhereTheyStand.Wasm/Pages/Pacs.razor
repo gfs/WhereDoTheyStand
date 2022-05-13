@@ -11,10 +11,10 @@
 
 <p>Data from the top 100 contributors to each candidate from OpenSecrets.org as of 5/12/2022.  Individual contributions are not included.</p>
 
-<p>Total included in the data set: $@String.Format("{0:n}",AppData.pacDict.Values.Sum(x => x.Sum(y => y.Pacs))) from @String.Format("{0:n}",AppData.pacDict.Count(x => x.Value.Any(y => y.Pacs > 0))) PACs.</p>
+<p>Total included in the data set: $@String.Format("{0:n0}",AppData.pacDict.Values.Sum(x => x.Sum(y => y.Pacs))) from @String.Format("{0:n0}",AppData.pacDict.Count(x => x.Value.Any(y => y.Pacs > 0))) PACs.</p>
 
 @foreach(var pac in AppData.pacDict.OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
 {
     <h1><a href="Pac/@pac.Key">@AppData.pacMap[@pac.Key].Ultord</a></h1>
-    <p>$@String.Format("{0:n}",pac.Value.Sum(y => y.Pacs)) donated to @String.Format("{0:n}",pac.Value.DistinctBy(x => x.Candidate).Count()) candidates.</p>
+    <p>$@String.Format("{0:n0}",pac.Value.Sum(y => y.Pacs)) donated to @String.Format("{0:n0}",pac.Value.DistinctBy(x => x.Candidate).Count()) candidates.</p>
 }
