@@ -61,9 +61,22 @@ else
         }
         CandidateId = candidateId;
         NavManager.NavigateTo(newUri);
+        MakeCandidateUrl();
+    }
+
+    void MakeCandidateUrl()
+    {
+        if (string.IsNullOrEmpty(CandidateId))
+        {
+            CandidateUrl = string.Empty;
+        }
+        else
+        {
+            CandidateUrl = "https://www.opensecrets.org/members-of-congress/contributors?cid={CandidateId}&cycle=2022";
+        }
     }
 
     string? CandidateId = null;
 
-    string CandidateUrl => $"https://www.opensecrets.org/members-of-congress/contributors?cid={CandidateId}&cycle=2022";
+    string CandidateUrl = string.Empty;
 }

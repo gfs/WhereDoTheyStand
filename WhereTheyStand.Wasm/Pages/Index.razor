@@ -56,9 +56,23 @@ else
         }
         PacId = pacId;
         NavManager.NavigateTo(newUri);
+        MakePacUrl();
+    }
+
+
+    void MakePacUrl()
+    {
+        if (string.IsNullOrEmpty(PacId))
+        {
+            PacUrl = string.Empty;
+        }
+        else
+        {
+            PacUrl = $"https://www.opensecrets.org/political-action-committees-pacs/{PacId}/candidate-recipients/2022";
+        }
     }
 
     string? PacId = null;
 
-    string PacUrl => $"https://www.opensecrets.org/political-action-committees-pacs/{PacId}/candidate-recipients/2022";
+    string PacUrl = string.Empty;
 }
