@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateDb", "CreateDb\Create
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereTheyStand.Lib", "WhereTheyStand.Lib\WhereTheyStand.Lib.csproj", "{86AB40EF-38B8-4C77-83FC-010693095377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereTheyStand.Wasm", "WhereTheyStand.Wasm\WhereTheyStand.Wasm.csproj", "{C8A259B3-9EB0-422E-A83A-B405EF411A6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereTheyStand.Wasm", "WhereTheyStand.Wasm\WhereTheyStand.Wasm.csproj", "{C8A259B3-9EB0-422E-A83A-B405EF411A6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
