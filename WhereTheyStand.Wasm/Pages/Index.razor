@@ -4,36 +4,36 @@
 
 @inject AppData AppData
 @using Microsoft.AspNetCore.WebUtilities
+@using WhereTheyStand.Lib
 @inject AppData AppData
 @inject NavigationManager NavManager
 
 <PageTitle>Where do they stand?</PageTitle>
 <Statement></Statement>
 
-@if (string.IsNullOrEmpty(PacId))
+@if (PacId is null)
 {
-    <p>Total included in the data set: $@String.Format("{0:n0}",AppData.pacDict.Values.Sum(x => x.Sum(y => y.Pacs))) from $@String.Format("{0:n0}",AppData.pacDict.Count(x => x.Value.Any(y => y.Pacs > 0))) PACs.</p>
+    <p>Total included in the data set: $@String.Format("{0:n0}",AppData.CurrentDataSet.DonationIdToDonation.Values.Sum(x => x.Pacs)) from $@String.Format("{0:n0}",AppData.CurrentDataSet.OrganizationIdToOrganization.Keys.Count(x => AppData.CurrentDataSet.OrganizationIdToDonations(x).Any(y => y.Pacs > 0))) PACs.</p>
 
-    @foreach(var pac in AppData.pacDict.Where(x => x.Value.Sum(y => y.Pacs) > 0).OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
+    @foreach(var pac in AppData.CurrentDataSet.OrganizationIdToOrganization.Keys.Where(x => AppData.CurrentDataSet.OrganizationIdToDonations(x).Any(x => x.Pacs > 0)).OrderByDescending(x => AppData.CurrentDataSet.OrganizationIdToDonations(x).Sum(y => y.Pacs)))
     {
-        <h1><a @onclick="() => { Set(pac.Key); }" style="color:blue">@AppData.pacMap[@pac.Key].Ultord</a></h1>
-        <p>$@String.Format("{0:n0}",pac.Value.Sum(y => y.Pacs)) donated to @String.Format("{0:n0}",pac.Value.Where(x => x.Pacs > 0).DistinctBy(x => x.Candidate).Count()) candidates.</p>
+        <h1><a @onclick="() => { Set(pac); }" style="color:blue">@AppData.CurrentDataSet.OrganizationIdToOrganization[@pac].Ultord</a></h1>
+        <p>$@String.Format("{0:n0}",AppData.CurrentDataSet.OrganizationIdToDonations(pac).Sum(y => y.Pacs)) donated to @String.Format("{0:n0}",AppData.CurrentDataSet.OrganizationIdToDonations(pac).Where(x => x.Pacs > 0).DistinctBy(x => x.Candidate).Count()) candidates.</p>
     }
 }
 else
 {
     <a @onclick="() => {Set(null);}">Reset</a>
     <div>
-        <h1>@AppData.pacMap[PacId].Ultord</h1>
-        <p>This PAC has donated @String.Format("{0:n0}",AppData.pacDict[PacId].Sum(x => x.Pacs)) to @String.Format("{0:n0}",AppData.pacDict[PacId].Where(x => x.Pacs > 0).Count()) candidates who co-sponsored HR 1011. <a href=@PacUrl target="_blank">Source</a></p>
+        <h1>@AppData.CurrentDataSet.OrganizationIdToOrganization[PacId].Ultord</h1>
+        <p>This PAC has donated @String.Format("{0:n0}",AppData.CurrentDataSet.OrganizationIdToDonations(PacId).Sum(x => x.Pacs)) to @String.Format("{0:n0}",AppData.CurrentDataSet.OrganizationIdToDonations(PacId).Where(x => x.Pacs > 0).Count()) candidates who co-sponsored HR 1011. <a href=@PacUrl target="_blank">Source</a></p>
         
-        @foreach(var donation in AppData.pacDict[PacId].Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
+        @foreach(var donation in AppData.CurrentDataSet.OrganizationIdToDonations(PacId).Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
         {
             <p>$@String.Format("{0:n0}",donation.Pacs) donated to <a href="Candidate?CandidateId=@donation.Candidate.id">@donation.Candidate.name</a></p>
         }
     </div>
 }
-
 
 @code
 {
@@ -42,15 +42,15 @@ else
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("PacId", out var pacId))
         {
-            PacId = pacId;
+            PacId = new OrganizationId(pacId);
         }
     }
 
-    void Set(string? pacId)
+    void Set(OrganizationId? pacId)
     {
         var existingUri = NavManager.Uri;
         var newUri = existingUri.Split('?')[0];
-        if (!string.IsNullOrEmpty(pacId))
+        if (pacId is not null)
         {
             newUri += $"?PacId={pacId}";
         }
@@ -62,7 +62,7 @@ else
 
     void MakePacUrl()
     {
-        if (string.IsNullOrEmpty(PacId))
+        if (PacId is null)
         {
             PacUrl = string.Empty;
         }
@@ -72,7 +72,7 @@ else
         }
     }
 
-    string? PacId = null;
+    OrganizationId? PacId = null;
 
     string PacUrl = string.Empty;
 }

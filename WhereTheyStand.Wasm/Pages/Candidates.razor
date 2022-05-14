@@ -3,36 +3,37 @@
 
 @inject AppData AppData
 @using Microsoft.AspNetCore.WebUtilities
+@using WhereTheyStand.Lib
 @inject AppData AppData
 @inject NavigationManager NavManager
 
 <Statement></Statement>
 
-@if (string.IsNullOrEmpty(CandidateId))
+@if (CandidateId is null)
 {
 
-    <p>Total included in the data set: $@String.Format("{0:n0}",AppData.candidateDict.Values.Sum(x => x.Sum(y => y.Pacs))) to @String.Format("{0:n0}",AppData.candidateDict.Count(x => x.Value.Any(y => y.Pacs > 0))) candidates.</p>
+    <p>Total included in the data set: $@String.Format("{0:n0}",AppData.CurrentDataSet.DonationIdToDonation.Values.Sum(x => x.Pacs)) to @String.Format("{0:n0}",AppData.CurrentDataSet.CandidateIdToCandidate.Keys.Count()) candidates.</p>
 
-    @foreach(var candidate in AppData.candidateDict.OrderByDescending(x => x.Value.Sum(y => y.Pacs)))
+    @foreach (var candidate in AppData.CurrentDataSet.CandidateIdToCandidate.Keys.Where(x => AppData.CurrentDataSet.CandidateIdToDonations(x).Any(x => x.Pacs > 0)).OrderByDescending(x => AppData.CurrentDataSet.CandidateIdToDonations(x).Sum(y => y.Pacs)))
     {
-        <h1><a @onclick="() => {Set(candidate.Key);}" style="color:blue;">@AppData.candidateMap[@candidate.Key].name</a></h1>
-        <p>$@String.Format("{0:n0}",candidate.Value.Sum(y => y.Pacs)) donated from @String.Format("{0:n0}",candidate.Value.Where(x => x.Pacs > 0).Count()) PACs.</p>
+        <h1><a @onclick="() => {Set(candidate);}" style="color:blue;">@AppData.CurrentDataSet.CandidateIdToCandidate[@candidate].name</a></h1>
+        <p>$@String.Format("{0:n0}",AppData.CurrentDataSet.CandidateIdToDonations(candidate).Sum(y => y.Pacs)) donated from @String.Format("{0:n0}",AppData.CurrentDataSet.CandidateIdToDonations(candidate).Where(x => x.Pacs > 0).Count()) PACs.</p>
     }
 }
 else
 {    <a @onclick="() => {Set(null);}">Reset</a>
 
-    if (!AppData.candidateMap.ContainsKey(CandidateId))
+    if (!AppData.CurrentDataSet.CandidateIdToCandidate.ContainsKey(CandidateId))
     {
         <div>Error: Invalid candidate id.</div>
     }
     else
     {
         <div>
-        <h1>@AppData.candidateMap[CandidateId].name</h1>
-        <p>@AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).Count() PACs have donated a total of $@String.Format("{0:n0}",AppData.candidateDict[CandidateId].Sum(x => x.Pacs)) to this candidate. <a href=@CandidateUrl target="_blank">Source</a></p>
+        <h1>@AppData.CurrentDataSet.CandidateIdToCandidate[CandidateId].name</h1>
+        <p>@AppData.CurrentDataSet.CandidateIdToDonations(CandidateId).Where(x => x.Pacs > 0).Count() PACs have donated a total of $@String.Format("{0:n0}",AppData.CurrentDataSet.CandidateIdToDonations(CandidateId).Sum(x => x.Pacs)) to this candidate. <a href=@CandidateUrl target="_blank">Source</a></p>
 
-        @foreach(var donation in AppData.candidateDict[CandidateId].Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
+        @foreach(var donation in AppData.CurrentDataSet.CandidateIdToDonations(CandidateId).Where(x => x.Pacs > 0).OrderByDescending(x => x.Pacs))
         {
             <p><a href="Pac?PacId=@donation.org.Pacid">@donation.org.Ultord</a> donated $@String.Format("{0:n0}",donation.Pacs)</p>
         }
@@ -45,17 +46,17 @@ else
     protected override void OnInitialized()
     {
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
-        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("CandidateId", out var pacId))
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("CandidateId", out var candidateId))
         {
-            CandidateId = pacId;
+            CandidateId = new(candidateId);
         }
     }
 
-    void Set(string? candidateId)
+    void Set(CandidateId? candidateId)
     {
         var existingUri = NavManager.Uri;
         var newUri = existingUri.Split('?')[0];
-        if (!string.IsNullOrEmpty(candidateId))
+        if (candidateId is not null)
         {
             newUri += $"?CandidateId={candidateId}";
         }
@@ -66,17 +67,17 @@ else
 
     void MakeCandidateUrl()
     {
-        if (string.IsNullOrEmpty(CandidateId))
+        if (CandidateId is null)
         {
             CandidateUrl = string.Empty;
         }
         else
         {
-            CandidateUrl = $"https://www.opensecrets.org/members-of-congress/contributors?cid={CandidateId}&cycle=2022";
+            CandidateUrl = $"https://www.opensecrets.org/members-of-congress/contributors?cid={CandidateId.id}&cycle=2022";
         }
     }
 
-    string? CandidateId = null;
+    CandidateId? CandidateId = null;
 
     string CandidateUrl = string.Empty;
 }

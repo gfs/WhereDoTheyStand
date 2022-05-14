@@ -7,10 +7,9 @@ using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 var hr1011 =
-    DictionaryFactory.GetDonationsFromFolder(
-        "C:\\Users\\Gstoc\\Desktop\\WhereTheyStand\\WhereTheyStand\\CreateDb\\HR1011");
+    DataSetFactory.GetDonationsFromFolder(
+        "C:\\Users\\Gstoc\\Desktop\\WhereTheyStand\\WhereTheyStand\\CreateDb\\HR1011",
+        new DateOnly(2022, 5, 12),
+        "Donations to Co-Sponsors of HR 1011 (2021).");
 
-File.WriteAllText("SortedOrgs.json",JsonConvert.SerializeObject(hr1011.pacDict));
-File.WriteAllText("Candidates.json", JsonConvert.SerializeObject(hr1011.userDict));
-File.WriteAllText("CandiateMap.json", JsonConvert.SerializeObject(hr1011.candidateMap));
-File.WriteAllText("PacMap.json", JsonConvert.SerializeObject(hr1011.pacMap));
+File.WriteAllText("HR1011.json",JsonConvert.SerializeObject(hr1011));
