@@ -2,7 +2,7 @@
 
 Access to Safe Legal Abortion is a Human Right. This is codified by the United Nations in the UN Covenant on Civil and Political Rights via General Comment No. 36 point 8 (2019).
 
-150 Republican House Members have co-sponsored the Life At Conception Act of 2021 (HR 1011), which would revoke that right in US law, revoking the right to Abortion nationwide.
+150 Republican House Members have co-sponsored the Life At Conception Act of 2021 (HR 1011), which would revoke that right in US law nationwide.
 
 This project hosts an interactive web app that shows how much PACs have contributed for the 2021-2022 election cycle for those candidates, as recorded by OpenSecrets.org.
 
