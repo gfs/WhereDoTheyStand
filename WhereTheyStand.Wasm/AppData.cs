@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using Newtonsoft.Json;
+using System.Net.Http.Json;
 using System.Reflection;
 using WhereTheyStand.Lib;
 
@@ -18,7 +19,7 @@ public class AppData
 
     public async Task LoadData(string? location = "DataSets/HR1011.json")
     {
-        CurrentDataSet = await client.GetFromJsonAsync<DataSet>(location) ?? new DataSet();
+        CurrentDataSet = JsonConvert.DeserializeObject<DataSet>(await client.GetStringAsync(location)) ?? new DataSet();
         IsLoaded = true;
     }
 }

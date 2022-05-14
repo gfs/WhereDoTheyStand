@@ -11,7 +11,6 @@
 
 @if (CandidateId is null)
 {
-
     <p>Total included in the data set: $@String.Format("{0:n0}",AppData.CurrentDataSet.DonationIdToDonation.Values.Sum(x => x.Pacs)) to @String.Format("{0:n0}",AppData.CurrentDataSet.CandidateIdToCandidate.Keys.Count()) candidates.</p>
 
     @foreach (var candidate in AppData.CurrentDataSet.CandidateIdToCandidate.Keys.Where(x => AppData.CurrentDataSet.CandidateIdToDonations(x).Any(x => x.Pacs > 0)).OrderByDescending(x => AppData.CurrentDataSet.CandidateIdToDonations(x).Sum(y => y.Pacs)))
