@@ -18,7 +18,7 @@ I do not collect any information about your use of the application.
 This is a personal project. Any opinions expressed are my own. This project is not affiliated with or funded by any PAC, Corporation, Candidate, Committee or Organization. 
 
 ## Bugs or Errors
-Please report any issues by filing an issue on GitHub: https://github.com/gfs/WhereDoTheyStand/Issues/.
+Please report any issues by filing an issue on GitHub: https://github.com/gfs/WhereDoTheyStand/issues/
 
 ## License
 MIT.
