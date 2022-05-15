@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using System.Reflection;
-using WhereTheyStand.Wasm;
 
 namespace WhereTheyStand.Wasm
 {
