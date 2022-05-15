@@ -3,14 +3,16 @@
 using System.Text.RegularExpressions;
 using CreateDb;
 using Microsoft.VisualBasic.FileIO;
-using Newtonsoft.Json;
+using WhereTheyStand.Lib;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 var hr1011 =
-    DictionaryFactory.GetDonationsFromFolder(
-        "C:\\Users\\Gstoc\\Desktop\\WhereTheyStand\\WhereTheyStand\\CreateDb\\HR1011");
+    DataSetFactory.GetDonationsFromFolder(
+        "C:\\Users\\Gstoc\\Documents\\GitHub\\WhereDoTheyStand\\CreateDb\\HR1011",
+        new DateOnly(2022, 5, 12),
+        "Donations to Co-Sponsors of HR 1011 (2021).");
 
-File.WriteAllText("SortedOrgs.json",JsonConvert.SerializeObject(hr1011.pacDict));
-File.WriteAllText("Candidates.json", JsonConvert.SerializeObject(hr1011.userDict));
-File.WriteAllText("CandiateMap.json", JsonConvert.SerializeObject(hr1011.candidateMap));
-File.WriteAllText("PacMap.json", JsonConvert.SerializeObject(hr1011.pacMap));
+var serialized = JsonSerializer.Serialize(hr1011.ToSerializableDataSet());
+var deserialized = JsonSerializer.Deserialize<SerializableDataSet>(serialized);
+var resultSet = new DataSet(deserialized);
+File.WriteAllText("HR1011.json", serialized);
