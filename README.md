@@ -12,7 +12,7 @@ You can access the app here: https://gfs.github.io/WhereDoTheyStand/.
 This is a .NET 6.0 Blazor WebAssembly app. Loading may take a moment. The application runs entirely in your browser from static files on GitHub Pages. 
 
 ## Privacy
-I do not collect any information about your use of the application.
+I do not collect any information about your use of the application. GitHub may collect data about your use of Public GitHub repositories as described here: https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-a-summary-of-repository-activity.
 
 ## Transparency
 This is a personal project. Any opinions expressed are my own. This project is not affiliated with or funded by any PAC, Corporation, Candidate, Committee or Organization. 
