@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace WhereTheyStand.Lib
@@ -14,13 +15,13 @@ namespace WhereTheyStand.Lib
 
         public DataSet(SerializableDataSet serializableDataSet)
         {
-            CollectionDate = dataSet.CollectionDate;
-            Description = dataSet.Description;
-            CandidateIdToDonationIds = dataSet.CandidateIdToDonationIds.ToDictionary(x => x.Key.ToString(), y => y.Value.Select(z => z.ToString()));
-            OrganizationIdToDonationIds = dataSet.OrganizationIdToDonationIds.ToDictionary(x => x.Key.ToString(), y => y.Value.Select(z => z.ToString()));
-            CandidateIdToCandidate = dataSet.CandidateIdToCandidate.ToDictionary(x => x.Key.ToString(), y => y.Value);
-            OrganizationIdToOrganization = dataSet.OrganizationIdToOrganization.ToDictionary(x => x.Key.ToString(), y => y.Value);
-            DonationIdToDonation = dataSet.DonationIdToDonation.ToDictionary(x => x.Key.ToString(), y => y.Value);
+            CollectionDate = DateTime.Parse(serializableDataSet.CollectionDate);
+            Description = serializableDataSet.Description;
+            CandidateIdToDonationIds = serializableDataSet.CandidateIdToDonationIds.ToDictionary(x => new CandidateId(x.Key), y => y.Value.Select(z => new DonationId(z)).ToList());
+            OrganizationIdToDonationIds = serializableDataSet.OrganizationIdToDonationIds.ToDictionary(x => new OrganizationId(x.Key), y => y.Value.Select(z => new DonationId(z)).ToList());
+            CandidateIdToCandidate = serializableDataSet.CandidateIdToCandidate.ToDictionary(x => new CandidateId(x.Key), y => y.Value);
+            OrganizationIdToOrganization = serializableDataSet.OrganizationIdToOrganization.ToDictionary(x => new OrganizationId(x.Key), y => y.Value);
+            DonationIdToDonation = serializableDataSet.DonationIdToDonation.ToDictionary(x => new DonationId(x.Key), y => y.Value);
         }
 
         public DateTime CollectionDate { get; set; }
@@ -45,7 +46,7 @@ namespace WhereTheyStand.Lib
     {
         public SerializableDataSet(DataSet dataSet)
         {
-            CollectionDate = dataSet.CollectionDate;
+            CollectionDate = dataSet.CollectionDate.ToString();
             Description = dataSet.Description;
             CandidateIdToDonationIds = dataSet.CandidateIdToDonationIds.ToDictionary(x => x.Key.ToString(), y => y.Value.Select(z => z.ToString()));
             OrganizationIdToDonationIds = dataSet.OrganizationIdToDonationIds.ToDictionary(x => x.Key.ToString(), y => y.Value.Select(z => z.ToString()));
@@ -53,13 +54,26 @@ namespace WhereTheyStand.Lib
             OrganizationIdToOrganization = dataSet.OrganizationIdToOrganization.ToDictionary(x => x.Key.ToString(), y => y.Value);
             DonationIdToDonation = dataSet.DonationIdToDonation.ToDictionary(x => x.Key.ToString(), y => y.Value);
         }
-        public DateTime CollectionDate { get; set; }
+
+        [JsonConstructor]
+        public SerializableDataSet(string CollectionDate, string Description, IDictionary<string, IEnumerable<string>> CandidateIdToDonationIds, IDictionary<string, IEnumerable<string>> OrganizationIdToDonationIds, IDictionary<string, Candidate> CandidateIdToCandidate, IDictionary<string, Organization> OrganizationIdToOrganization, IDictionary<string, Donation> DonationIdToDonation)
+        {
+            this.CollectionDate = CollectionDate;
+            this.Description = Description;
+            this.CandidateIdToDonationIds = CandidateIdToDonationIds;
+            this.OrganizationIdToDonationIds = OrganizationIdToDonationIds;
+            this.CandidateIdToCandidate = CandidateIdToCandidate;
+            this.OrganizationIdToOrganization = OrganizationIdToOrganization;
+            this.DonationIdToDonation = DonationIdToDonation;
+        }
+
+        public string CollectionDate { get; set; }
         public string Description { get; set; } = string.Empty;
 
-        public IDictionary<string, IEnumerable<string>> CandidateIdToDonationIds { get; set; }
-        public IDictionary<string, IEnumerable<string>> OrganizationIdToDonationIds { get; set; }
-        public IDictionary<string, Candidate> CandidateIdToCandidate { get; set; }
-        public IDictionary<string, Organization> OrganizationIdToOrganization { get; set; }
-        public IDictionary<string, Donation> DonationIdToDonation { get; set; }
+        public IDictionary<string, IEnumerable<string>> CandidateIdToDonationIds { get; set; } = new Dictionary<string, IEnumerable<string>>();
+        public IDictionary<string, IEnumerable<string>> OrganizationIdToDonationIds { get; set; } = new Dictionary<string, IEnumerable<string>>();
+        public IDictionary<string, Candidate> CandidateIdToCandidate { get; set; } = new Dictionary<string, Candidate>();
+        public IDictionary<string, Organization> OrganizationIdToOrganization { get; set; } = new Dictionary<string, Organization>();
+        public IDictionary<string, Donation> DonationIdToDonation { get; set; } = new Dictionary<string, Donation>();
     }
 }

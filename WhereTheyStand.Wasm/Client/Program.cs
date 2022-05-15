@@ -16,13 +16,12 @@ namespace WhereTheyStand.Wasm
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             };
             var appData = new AppData(httpClient);
-
             builder.Services.AddSingleton<AppData>(appData);
             builder.Services.AddScoped(sp => new HttpClient
             {
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
-
+            await appData.LoadData();
             await builder.Build().RunAsync();
         }
     }

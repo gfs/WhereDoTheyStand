@@ -1,5 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject AppData AppData
 
 <div class="page">
     <div class="sidebar">
@@ -16,11 +15,3 @@
         </article>
     </main>
 </div>
-
-@code{
-    protected override async Task OnInitializedAsync()
-    {
-        await AppData.LoadData();
-        await base.OnInitializedAsync();
-    }
-}
