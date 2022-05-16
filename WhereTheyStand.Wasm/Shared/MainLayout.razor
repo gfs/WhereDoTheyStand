@@ -1,8 +1,12 @@
 ﻿@inherits LayoutComponentBase
+@inject AppData AppData
 
 <div class="page">
     <div class="sidebar">
         <NavMenu />
+        <div>
+            <p>Loaded in @AppData.stopwatch.Elapsed.TotalMilliseconds ms.</p>
+        </div>
     </div>
 
     <main>
