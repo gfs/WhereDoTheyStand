@@ -25,7 +25,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-+Lf3RyXpoE\/Hi\/6evwchIgw4kcFHsU1SJC8m\/09eyug=",
+      "hash": "sha256-qLdoSkJJrNaysvhat7aE8j9PRiyQZEKK\/SsqYnP1syA=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -165,15 +165,15 @@
       "url": "_framework\/WhereTheyStand.Lib.dll"
     },
     {
-      "hash": "sha256-HbgrD3s7gQuCN5O2khVrKzCinWVFwr3PrutdP5bsx0c=",
+      "hash": "sha256-4mCGMK\/p4GJfs2bZ\/BY4R175OuQMscxUmG1YVkPRV28=",
       "url": "_framework\/WhereTheyStand.Wasm.dll"
     },
     {
-      "hash": "sha256-5LnDMtETXRy1EPzsbRhKWh1ZU1K\/rOlfDO0VpudwiFg=",
+      "hash": "sha256-3kh+fKc1KoDer8zkjKDLSsvYPOlvebhQzUuTfV3pzfQ=",
       "url": "_framework\/dotnet.6.0.5.11e8hnxlyu.js"
     },
     {
-      "hash": "sha256-9mOKsDVQQdhyBKDswfz2VDN\/n1a8UWTKqOf3hG96hlE=",
+      "hash": "sha256-lNr83cnD23aJyRAnV0gWGCsOeei2lvuMw+ZGndenQJY=",
       "url": "_framework\/dotnet.wasm"
     },
     {
@@ -261,5 +261,5 @@
       "url": "manifest.json"
     }
   ],
-  "version": "+UouzyuX"
+  "version": "wTfTBJMk"
 };
